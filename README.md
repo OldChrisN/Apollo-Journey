@@ -21,7 +21,7 @@ Rocket roar from newlocknew on freesound.org
 
 MAKE SURE TO READ THIS!
 
-I made the sim mostly by myself in python while using claude to check if my equations were correct. I also wrote JS, HTML bym yself. I used claude for about
+I made the sim mostly by myself in python while using claude to check if my equations were correct. I also wrote JS, HTML by myself. I used claude for about
 30% of CSS because I kept running into positioning problems and decided to just vibe code. I also used claude for most of three JS code in main.JS since I didn't
 really know how to use it and didn't have the energy to learn another libary, but I did make all the models, and plume effects and the smoke effects during launch 
 came from Kenney particles.
