@@ -30,21 +30,24 @@ body:has(#sim_canvas.hidden){
     position: fixed;
     inset: 0;
     z-index: 12;
-    background: #000;                              /* the black it fades to */
-    animation: title_reveal 1.5s ease 8s forwards; /* black fades away to the button screen */
+    background: #000;                              
+    animation: title_reveal 1.5s ease 8s forwards; 
 }
 
-.title_sceen > *{                                  /* the image and both lines of text */
-    animation: title_to_black 3s ease 4s forwards;
+.title_sceen > *{                                  
+    animation: title_sequence 7s ease forwards;
 }
 
-@keyframes title_to_black {
-    to { opacity: 0; }
+@keyframes title_sequence {
+    0%   { opacity: 0; }    
+    14%  { opacity: 1; }    
+    57%  { opacity: 1; }    
+    100% { opacity: 0; }    
 }
 
 @keyframes title_reveal {
     from { opacity: 1; visibility: visible; }
-    to   { opacity: 0; visibility: hidden; }       /* hidden at the end, so the button can be clicked */
+    to   { opacity: 0; visibility: hidden; }
 }
 
 .title_sceen h5{
