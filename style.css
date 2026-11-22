@@ -77,11 +77,15 @@ body:has(#sim_canvas.hidden){
 
 .title_sceen img{
     position: fixed;
-    top: 50%;
-    left: 50%;   
-    transform: translate(-50%, -50%); 
-    width: 1750px;
-    height: auto;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;              
+    object-position: 50% 35%;       
+}
+
+@media (min-aspect-ratio: 2/1) {
+    .title_sceen img { object-fit: contain; object-position: center; }
 }
 
 .button_background{
