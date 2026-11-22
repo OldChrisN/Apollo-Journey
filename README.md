@@ -28,4 +28,5 @@ came from Kenney particles.
 
 What I learned.
 
-I learned how to code objects in python and how to work with libaries like chart JS and three JS and I also learned some rocket science equations.
+I learned how to code objects in python and how to work with libaries like chart JS and three JS and I also learned some rocket science equations. I also learned
+how to make interactive UI using JS and CSS.
