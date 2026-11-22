@@ -6,3 +6,13 @@ results to the browser I used a import that jsonifys mt results so I could loop 
 
 The reason I made this website was because I wanted to gain experience coding while in high school so I could have a easier time coding in the future and I also wanted to have fun messing around with rocket physics.
 
+For the models and images I used fire and smoke simulations in blender to make the rocket plume particle effects along with using key frames to animate the x location in mapping to animate the s-ii and s-ivb rocket plumes. I also made the image you see when you enter the website, all the rocket stages, the umbilical tower and the launchpad using blender.
+
+Music
+Heaven and Hell from Jeremy Blake
+Away from Patrick Patrikios
+Event Departure from Silent Partner
+
+Sound effects
+Countdown from NASA
+Rocket roar from newlocknew on freesound.org
