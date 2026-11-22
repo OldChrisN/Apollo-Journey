@@ -1,0 +1,679 @@
+:root {
+    --sky-top: #87ceeb;       /* overhead color */
+    --sky-bottom: #bfe4f5;    /* horizon color */
+    --glow: 0;                /* atmosphere band strength, 0 to 1 */
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        /* atmosphere glow: a soft blue band rising from the bottom edge */
+        radial-gradient(ellipse 130% 15% at 50% 115%,
+        rgba(110, 170, 255, var(--glow)) 0%,
+        rgba(110, 170, 255, 0) 70%),
+        /* the sky itself: zenith at the top, horizon at the bottom */
+        linear-gradient(to bottom,
+        var(--sky-top) 0%,
+        var(--sky-top) 35%,       /* top color holds for the first 35% */
+        var(--sky-bottom) 100%);
+    background-attachment: fixed;
+}
+
+html, body { margin: 0; overflow: hidden; }
+
+body:has(#sim_canvas.hidden){
+    background: #000;
+}
+
+.title_sceen{
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    background: #000;                              /* the black it fades to */
+    animation: title_reveal 1.5s ease 8s forwards; /* black fades away to the button screen */
+}
+
+.title_sceen > *{                                  /* the image and both lines of text */
+    animation: title_to_black 3s ease 4s forwards;
+}
+
+@keyframes title_to_black {
+    to { opacity: 0; }
+}
+
+@keyframes title_reveal {
+    from { opacity: 1; visibility: visible; }
+    to   { opacity: 0; visibility: hidden; }       /* hidden at the end, so the button can be clicked */
+}
+
+.title_sceen h5{
+    position: fixed;
+    top: 10%;
+    left: 15%;   
+    transform: translate(-50%, -50%); 
+    z-index: 13;
+    color: white;
+    font-family: "Michroma", sans-serif;
+    text-shadow: 0 0 4px #000, 0 0 10px rgba(0, 0, 0, 0.2);
+    font-weight: 200;
+}
+
+.title_sceen h3{
+    position: fixed;
+    top: 15%;
+    left: 15%;   
+    transform: translate(-50%, -50%); 
+    z-index: 13;
+    color: white;
+    font-family: "Michroma", sans-serif;
+    text-shadow: 0 0 4px #000, 0 0 10px rgba(0, 0, 0, 0.2);
+    font-weight: 200;
+}
+
+
+.title_sceen img{
+    position: fixed;
+    top: 50%;
+    left: 50%;   
+    transform: translate(-50%, -50%); 
+    width: 1750px;
+    height: auto;
+}
+
+.button_background{
+    background-color: #000;
+    position: fixed;
+    top: 50%;
+    left: 50%;   
+    transform: translate(-50%, -50%);     
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 11;
+}
+
+.launch_button{
+    position: fixed;
+    top: 50%;
+    left: 50%;   
+    transform: translate(-50%, -50%);     
+    width: clamp(140px, 30vmin, 260px);
+    aspect-ratio: 1;        
+    height: auto;        
+    padding: 0;
+    font-size: clamp(0.9rem, 4vmin, 2rem);
+    display: block;
+    z-index: 12;
+    background-color: #e20707;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.2rem, 2vw, 3rem);
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.launch_button:hover{
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+    font-weight: 400;
+}
+
+.launch_button:active{
+    transform: scale(1.05);
+    transform: translate(-50%, -50%);
+    transition: all 0.05s ease;
+}
+
+.music_by{
+    position: fixed;
+    top: 70px;                      
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 10;
+}
+
+.launch_event{
+    position: fixed;
+    top: 95px;                      
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.0rem;
+    color: white;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 10;
+}
+
+.music_by.show{
+    opacity: 1;
+}
+
+.launch_event.show{
+    opacity: 1;
+}
+
+.headsup{
+    font-family: 'Orbitron', sans-serif;
+    position: fixed;
+    top: calc(51% + clamp(70px, 15vmin, 130px) + 18px);  
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 520px);
+    margin: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: white;
+    opacity: 0.7;
+    z-index: 12;
+}
+
+.headsuptwo{
+    font-family: 'Orbitron', sans-serif;
+    position: fixed;
+    top: calc(55% + clamp(70px, 15vmin, 130px) + 18px);  
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 520px);
+    margin: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: white;
+    opacity: 0.7;
+    z-index: 12;
+}
+
+.copyright{
+    position: fixed;
+    right: 16px;
+    bottom: 12px;
+    margin: 0;
+    font-size: 0.75rem;
+    color: white;
+    opacity: 0.6;
+    z-index: 12;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.gitbutton{
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    color: white;
+    opacity: 0.7;
+    z-index: 12;
+    line-height: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gitbutton:hover{
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.chart_mode p{
+    color: #51cf66;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.chart_mode button{
+    color: #51cf66;
+    font-family: 'Orbitron', sans-serif;
+    background-color: black;
+    border: none;
+}
+
+.chart_mode button:hover, .chart_mode button:active{
+    background-color: black;
+}
+
+#sim_canvas {
+    position: fixed;
+    inset: 0;          
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+}
+
+#fade_overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 4;                       /* above the canvas, below the charts (5) and the UI (10) */
+    transition: opacity 10s linear;
+}
+
+#fade_overlay.fade_active {
+    opacity: 1;
+}
+
+#thanks_msg {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 6;
+}
+
+#thanks_msg.thanks_show {
+    animation: thanks_fade 6s ease forwards;
+}
+
+@keyframes thanks_fade {
+    0%   { opacity: 0; }
+    8%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.hidden_flight{
+    display: block !important;
+}
+
+.replay_button{
+    margin-right: 20px;
+}
+
+.playback_container_alt {
+    position: fixed;
+    top: 12px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    z-index: 1000;
+}
+
+.playback_number{
+    font-size: 1.2em;
+}
+
+.playback_container_alt .hide_button {
+    position: static;
+    margin-left: 10px;
+}
+
+.hide_button{
+    border-radius: 20px;
+}
+
+.playback_container, .highest_lowest{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.playback_container button{
+    border-radius: 5px;
+}
+
+.playback_container{
+    margin-right: 10px;
+}
+
+.top_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.music_button{
+    margin-right: 30px;
+}
+
+.top_container button{
+    cursor: pointer;
+}
+
+.highest_lowest{
+    position: static;
+    margin-right: 0;
+}
+
+.highest_lowest p{
+    font-size: 1.2em;
+}
+
+.pause_button_class{
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+ul{
+    list-style-type: none; 
+    padding: 0;            
+    margin: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: 8px;
+}
+
+.time_container{
+    position: absolute;
+    top: 83%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 4px #000, 0 0 10px rgba(0, 0, 0, 0.8);
+
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#mission_time_label{
+    position: absolute;
+    top: 79%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 13px;
+    text-shadow: 0 0 4px #000, 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.rocket_info_group, .stage_info_group{
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.info_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+
+    gap: 20px;
+    padding: 10px;
+}
+
+/*Dropdown buttons section*/
+
+.flight_dropdown button{
+    cursor: pointer;
+    display: block;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+
+.flight_dropdown{
+    margin-right: 30px;
+    padding: 10px 15px;
+}
+
+.flight_dropdown .content{
+    gap: 5px;
+    margin-top: 5px;
+    display: none;
+    
+
+    position: absolute;
+}
+
+.content button{
+    border: none;
+}
+
+/*Graphs*/
+
+.leave_graph {
+    display: block !important;
+    position: static;
+    margin-left: 20px;
+    margin-top: 0;
+    
+}
+
+.alt_time_chart, .vel_time_chart, .mass_time_chart, .acceleration_time_chart, .pressure_time_chart{
+    display: none;
+}
+
+.alt_time_chart_active{
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    width: 95%;
+    height: 600px;
+    padding: 10px;
+    margin-top: 10px;
+
+    position: relative;
+    z-index: 5;
+}
+
+
+/*Decoration*/
+
+*{
+    font-family: 'Space Mono', monospace;
+}
+
+p, ul, li{
+    color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button{
+    border: solid 2px;
+    background: transparent;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+button:hover{
+    transform: scale(1.05);
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease;
+    font-weight: 400;
+}
+
+.top_container button:active, .top_container button.keyboard-active{
+    background-color: white;
+    transform: scale(.95);
+    transition: all 0.05s ease;
+}
+
+/*Adaptive UI*/
+
+.top_container{
+    position: relative;
+    z-index: 10;
+}
+
+.info_container{
+    z-index: 10;      /* it's already position: absolute, so z-index works */
+}
+
+@media (max-width: 760px) {
+
+    .info_container {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        gap: 12px;
+    }
+
+    .time_container {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 25px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+
+        width: max-content;
+        margin: 0 !important;
+        font-size: 16px;
+        font-weight: bold;
+        white-space: nowrap;
+        z-index: 100;
+    }
+
+    #mission_time_label{
+        position: fixed !important;
+        top: auto !important;
+        bottom: 45px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+
+        width: max-content;
+        margin: 0 !important;
+        white-space: nowrap;
+        z-index: 100;
+    }
+
+    .rocket_info_group,
+    .stage_info_group {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .highest_lowest {
+        font-size: 12px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .playback_container{
+        transform: translateY(-25px);
+    }
+
+    .launch_event{
+        top: 150px;                      
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 690px) {
+
+    .info_container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: auto;
+        gap: 22px;
+    }
+
+    #mission_time_label{
+        position: fixed !important;
+        top: auto !important;
+        bottom: 49px !important;
+        left: 58% !important;
+        right: auto !important;
+        transform: translateX(90%) !important;
+
+        width: max-content;
+        margin: 0 !important;
+        white-space: nowrap;
+        z-index: 100;
+    }
+
+    .time_container {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 25px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(90%) !important;
+
+        width: max-content;
+        margin: 0 !important;
+        font-size: 16px;
+        font-weight: bold;
+        white-space: nowrap;
+        z-index: 100;
+        
+    }
+
+    .rocket_info_group,
+    .stage_info_group {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .highest_lowest {
+        font-size: 12px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    
+    .top_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .launch_event{
+        top: 200px;                      
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 852px) {
+    .top_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+}
