@@ -564,7 +564,7 @@ function updateFlight(timestamp){
         musicStarted2 = true;
         AwaySong.play();
     }
-    else if(paused === true || missionTime > 600){
+    else if(paused === true || missionTime > 610){
         musicStarted2 = false;
         AwaySong.pause();
     }
