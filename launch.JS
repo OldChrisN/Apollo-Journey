@@ -555,7 +555,7 @@ function updateFlight(timestamp){
         musicStarted1 = true;
         HeavenHellSong.play();
     }
-    else if(paused === true){
+    else if(paused === true || missionTime > 446){
         musicStarted1 = false;
         HeavenHellSong.pause();
     }
@@ -564,7 +564,7 @@ function updateFlight(timestamp){
         musicStarted2 = true;
         AwaySong.play();
     }
-    else if(paused === true){
+    else if(paused === true || missionTime > 600){
         musicStarted2 = false;
         AwaySong.pause();
     }
